@@ -14,6 +14,7 @@ ACPPBomb::ACPPBomb()
 	m_fBlastLength = 100.0f;
 	m_bRemoteBomb = false;
 	m_pOwner = nullptr;
+	m_bTriggered = false;
 }
 
 // Called when the game starts or when spawned
@@ -44,6 +45,8 @@ void ACPPBomb::TickCountDown(float DeltaTime)
 void ACPPBomb::TriggerExplode()
 {
 	PrimaryActorTick.bCanEverTick = false;
+	m_bTriggered = true;
+
 	if (m_pOwner)
 		m_pOwner->OnBoooooomCPP(m_bRemoteBomb);
 

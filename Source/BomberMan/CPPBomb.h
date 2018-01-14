@@ -37,6 +37,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Gameplay)
 	ACPPCharacter*	m_pOwner;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Gameplay)
+	bool			m_bTriggered;
+
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	void		TriggerExplode();
 

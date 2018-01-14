@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "CPPPickUpBase.h"
 #include "GameFramework/Actor.h"
 #include "CPPElementBase.generated.h"
 
@@ -21,6 +22,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+		EPickUpType CheckDropPickUp();
 
 	
 	

@@ -12,7 +12,9 @@ enum EPickUpType
 	ePUT_Longer,
 	ePUT_More,
 	ePUT_Faster,
-	ePUT_Remote
+	ePUT_Remote,
+
+	ePUT_None
 };
 
 UCLASS()

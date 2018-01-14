@@ -25,6 +25,11 @@ void ACPPGameMode::ResetRate()
 {
 	m_iDRate = 60;
 	m_iUDRate = 20;
+
+	m_iPickupMoreBombRate = 20;
+	m_iPickupLongerRate = 20;
+	m_iPickupRunspeedRate = 20;
+	m_iPickupPowerupRate = 20;
 }
 
 void ACPPGameMode::StartPlay()
@@ -38,6 +43,11 @@ void ACPPGameMode::StartPlay()
 TArray<FSingleElementInfo> ACPPGameMode::GenerateMap(int iWidth, int iHeight)
 {
 	if (m_iDRate + m_iUDRate > 100)
+	{
+		ResetRate();
+	}
+
+	if (m_iPickupMoreBombRate + m_iPickupLongerRate + m_iPickupRunspeedRate + m_iPickupPowerupRate > 100)
 	{
 		ResetRate();
 	}

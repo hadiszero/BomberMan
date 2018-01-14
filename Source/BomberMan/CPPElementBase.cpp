@@ -26,3 +26,29 @@ void ACPPElementBase::Tick(float DeltaTime)
 
 }
 
+EPickUpType ACPPElementBase::CheckDropPickUp()
+{
+	ACPPGameMode* pGM = Cast<ACPPGameMode>(UGameplayStatics::GetGameMode(this));
+	if (!pGM)
+		return ePUT_None;
+
+	int iRate = rand() % 100;
+	if (iRate < pGM->m_iPickupMoreBombRate)
+	{
+		return ePUT_More;
+	}
+	else if (iRate < pGM->m_iPickupMoreBombRate + pGM->m_iPickupLongerRate)
+	{
+		return ePUT_Longer;
+	}
+	else if (iRate < pGM->m_iPickupMoreBombRate + pGM->m_iPickupLongerRate + pGM->m_iPickupRunspeedRate)
+	{
+		return ePUT_Faster;
+	}
+	else if (iRate < pGM->m_iPickupMoreBombRate + pGM->m_iPickupLongerRate + pGM->m_iPickupRunspeedRate + pGM->m_iPickupPowerupRate)
+	{
+		return ePUT_Remote;
+	}
+
+	return ePUT_None;
+}

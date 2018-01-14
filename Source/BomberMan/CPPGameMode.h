@@ -85,6 +85,19 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Cfg)
 		int				m_iDRate;
 
+	/** m_iPickupMoreBombRate + m_iPickupLongerRate + m_iPickupRunspeedRate + m_iPickupPowerupRate should be <= 100 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Cfg)
+		int				m_iPickupMoreBombRate;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Cfg)
+		int				m_iPickupLongerRate;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Cfg)
+		int				m_iPickupRunspeedRate;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Cfg)
+		int				m_iPickupPowerupRate;
+
 	/** top left x */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
 		float			m_fSceneBaseX;
