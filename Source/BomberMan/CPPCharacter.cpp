@@ -30,6 +30,7 @@ void ACPPCharacter::BeginPlay()
 	}
 
 	m_pGM = Cast<ACPPGameMode>(UGameplayStatics::GetGameMode(this));
+	m_pGI = Cast<UCPPGameInstance>(UGameplayStatics::GetGameInstance(this));
 
 	if (m_fLeftPowerUpTime > 0.0f)
 	{
@@ -42,6 +43,20 @@ void ACPPCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	TickPowerUpStatus(DeltaTime);
+	UpdateStatusString();
+}
+
+void ACPPCharacter::UpdateStatusString()
+{
+	if (!m_pGI)
+		return;
+
+	char caBuf[512];
+	sprintf_s(caBuf, "Bomb: %d/%d\nRemoteBomb: %d/%d\nScore: %d", 
+		m_iCurBombCnt, m_iMaxBombCnt, m_iCurRemoteBombCnt, m_iMaxRemoteBombCnt, 
+		m_iPlayerID == 1 ? m_pGI->m_iP1Score : m_pGI->m_iP2Score);
+
+	m_sStatusString = ANSI_TO_TCHAR(caBuf);
 }
 
 void ACPPCharacter::TickPowerUpStatus(float DeltaTime)
@@ -99,10 +114,16 @@ void ACPPCharacter::OnPowerUpPickupCPP()
 {
 	if (!m_pGM)
 		return;
+	
+	//	if we're already in powerup status, don't reset remote bomb count
+	if (m_fLeftPowerUpTime < 0)
+	{
+		m_iCurRemoteBombCnt = 1;
+		m_iMaxRemoteBombCnt = 1;
+	}
 
 	m_fLeftPowerUpTime = m_pGM->m_fPowerUpLast;
-	m_iCurRemoteBombCnt = 1;
-	m_iMaxRemoteBombCnt = 1;
+	
 	OnPoweredUp();
 }
 

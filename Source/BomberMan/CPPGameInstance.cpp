@@ -5,4 +5,8 @@
 
 
 
-
+UCPPGameInstance::UCPPGameInstance()
+{
+	m_iP1Score = 0;
+	m_iP2Score = 0;
+}

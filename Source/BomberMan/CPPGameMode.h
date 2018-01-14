@@ -26,6 +26,15 @@ enum EFloorWallType
 	eFWT_Right
 };
 
+UENUM()
+enum EGameEndType
+{
+	eGET_1PWin,
+	eGET_2PWin,
+	eGET_Draw,
+	eGET_Timeup
+};
+
 USTRUCT()
 struct FSingleElementInfo
 {
@@ -48,6 +57,9 @@ struct FSingleElementInfo
 	}
 };
 
+
+class ACPPCharacter;
+class UCPPGameInstance;
 /**
  * 
  */
@@ -64,10 +76,21 @@ class BOMBERMAN_API ACPPGameMode : public AGameMode
 	UFUNCTION(BlueprintCallable, Category = GamePlay)
 		void SetFloorWallScaleAndLocation(EFloorWallType eType, AActor* pActor);
 
+		void TickGameStatus(float DeltaTime);
+
 	void ResetRate();
 
 public:
 	virtual void StartPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
+
+	void CPPOnGameEnd(EGameEndType eGameEndType);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = GamePlay)
+	void OnGameEnd(EGameEndType eGameEndType);
+
+	UFUNCTION(BlueprintCallable, Category = GamePlay)
+	void SetP1AndP2(ACPPCharacter* pP1, ACPPCharacter* pP2);
 
 	/** please don't modify m_iSceneWidth and m_iSceneHeight, unless you know what you're doint */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Cfg)
@@ -98,6 +121,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Cfg)
 		int				m_iPickupPowerupRate;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Cfg)
+		float			m_fRoundTime;
+
+
 	/** top left x */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
 		float			m_fSceneBaseX;
@@ -117,4 +144,14 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
 		float			m_fBlastLengthDelta;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
+		ACPPCharacter*		m_pP1;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
+		ACPPCharacter*		m_pP2;
+
+	bool				m_bGameEnd;
+
+	UCPPGameInstance*	m_pGI;
 };

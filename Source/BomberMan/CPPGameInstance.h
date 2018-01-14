@@ -12,8 +12,15 @@ UCLASS()
 class BOMBERMAN_API UCPPGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
+
+	UCPPGameInstance();
+
+public:
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = Gameplay)
+	int			m_iP1Score;
 	
-	
-	
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = Gameplay)
+	int			m_iP2Score;
+
 	
 };

@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "CPPGameInstance.h"
 #include "CPPGameMode.h"
 #include "GameFramework/Character.h"
 #include "CPPCharacter.generated.h"
@@ -50,6 +51,13 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = GamePlay)
 	float			m_fLeftPowerUpTime;
 
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = GamePlay)
+	bool			m_bDead;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = GamePlay)
+		FString			m_sStatusString;
+
+
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 		void			OnBlastLengthPickupCPP();
 
@@ -80,7 +88,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 		void			OnIgniteCPP();
 
+
+
+	void UpdateStatusString();
+
 private:
 	ACPPGameMode*		m_pGM;
-
+	UCPPGameInstance*	m_pGI;
 };

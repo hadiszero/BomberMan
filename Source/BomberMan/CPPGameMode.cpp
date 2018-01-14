@@ -2,7 +2,8 @@
 
 #include "BomberMan.h"
 #include "CPPGameMode.h"
-
+#include "CPPCharacter.h"
+#include "CPPGameInstance.h"
 
 
 
@@ -19,6 +20,13 @@ ACPPGameMode::ACPPGameMode()
 
 	m_fPowerUpLast = 10.0f;
 	m_fBlastLengthDelta = 100.0f;
+
+	m_fRoundTime = 10.0f;
+
+	m_bGameEnd = false;
+
+	m_pP1 = nullptr;
+	m_pP2 = nullptr;
 }
 
 void ACPPGameMode::ResetRate()
@@ -36,6 +44,8 @@ void ACPPGameMode::StartPlay()
 {
 	m_fSceneBaseX = -(m_iSceneWidth / 2.0f * 100.0f);
 	m_fSceneBaseY = -(m_iSceneHeight / 2.0f * 100.0f);
+
+	m_pGI = Cast<UCPPGameInstance>(UGameplayStatics::GetGameInstance(this));
 
 	Super::StartPlay();
 }
@@ -138,4 +148,56 @@ void ACPPGameMode::SetFloorWallScaleAndLocation(EFloorWallType eType, AActor* pA
 	default:
 		break;
 	}
+}
+
+void ACPPGameMode::Tick(float DeltaSeconds)
+{
+	TickGameStatus(DeltaSeconds);
+
+}
+
+void ACPPGameMode::TickGameStatus(float DeltaTime)
+{
+	if (m_bGameEnd)
+		return;
+
+	bool bP1Dead = (!m_pP1 || m_pP1->m_bDead);
+	bool bP2Dead = (!m_pP2 || m_pP2->m_bDead);
+
+	if (bP1Dead && !bP2Dead)
+	{
+		if (m_pGI)
+			m_pGI->m_iP2Score++;
+
+		CPPOnGameEnd(eGET_2PWin);
+	}
+	else if (bP2Dead && !bP1Dead)
+	{
+		if (m_pGI)
+			m_pGI->m_iP1Score++;
+
+		CPPOnGameEnd(eGET_1PWin);
+	}
+	else if (bP1Dead && bP2Dead)
+	{
+		CPPOnGameEnd(eGET_Draw);
+	}
+
+	m_fRoundTime -= DeltaTime;
+	if (m_fRoundTime <= 0)
+	{
+		CPPOnGameEnd(eGET_Timeup);
+	}
+}
+
+void ACPPGameMode::CPPOnGameEnd(EGameEndType eGameEndType)
+{
+	OnGameEnd(eGameEndType);
+	m_bGameEnd = true;
+}
+
+void ACPPGameMode::SetP1AndP2(ACPPCharacter* pP1, ACPPCharacter* pP2)
+{
+	m_pP1 = pP1;
+	m_pP2 = pP2;
 }
