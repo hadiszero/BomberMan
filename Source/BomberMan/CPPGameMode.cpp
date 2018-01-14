@@ -13,6 +13,12 @@ ACPPGameMode::ACPPGameMode()
 
 	m_iSceneWidth = 30;
 	m_iSceneHeight = 30;
+
+	m_fSpeedPickupMaxSpeedDelta = 60.0f;
+	m_fSpeedPickupAccelerationDelta = 204.8f;
+
+	m_fPowerUpLast = 10.0f;
+	m_fBlastLengthDelta = 100.0f;
 }
 
 void ACPPGameMode::ResetRate()

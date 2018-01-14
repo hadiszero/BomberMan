@@ -92,4 +92,16 @@ public:
 	/** top left y */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
 		float			m_fSceneBaseY;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
+		float			m_fSpeedPickupMaxSpeedDelta;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
+		float			m_fSpeedPickupAccelerationDelta;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
+		float			m_fPowerUpLast;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Cfg)
+		float			m_fBlastLengthDelta;
 };
