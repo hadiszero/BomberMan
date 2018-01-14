@@ -85,6 +85,9 @@ TArray<FSingleElementInfo> ACPPGameMode::GenerateMap(int iWidth, int iHeight)
 
 void ACPPGameMode::SetFloorWallScaleAndLocation(EFloorWallType eType, AActor* pActor)
 {
+	if (!pActor)
+		return;
+
 	switch (eType)
 	{
 	case eFWT_Floor:
