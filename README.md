@@ -13,6 +13,7 @@ Both of them are located in Content/ThirdParty folder
 Time cost:
 
 For I'm not familiar with github, so I uploaded the project to my own Perforce server first. Finally uploaded to github, so the timestamp can see on github is not real, but the commit steps are almost same(only merged some unimportant commits) to the commit steps of my perforce server, so you still can follow the step how I finish the project.
+However, I uploaded a screenshot of my own Perforce server, you can see the picture in README.pdf.
 
 Basic setting and key setting: 0.5 hour.
 
