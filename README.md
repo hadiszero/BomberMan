@@ -13,6 +13,8 @@ Both of them are located in Content/ThirdParty folder
 
 Time cost
 
+For I'm not familiar with github, so I uploaded project to my own Perforce server first. Finally uploaded to github, so the timestamp can see on github is not real, but the commit steps are almost same(only merged some unimportant commits) to the commit steps of my perforce server, so you still can follow the step how I finish the project.
+
 Basic setting and key setting: 0.5 hour
 procedural generated map: 3 hours
 Pan in/out camera: 1 hour
